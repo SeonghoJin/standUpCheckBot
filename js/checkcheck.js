@@ -7,7 +7,7 @@ var rtm;
 var web;
 
 
-token = fs.readFileSync('../../token/token.txt', 'utf8');
+token = fs.readFileSync('../token/token.txt', 'utf8');
 
 rtm = new RTMClient(token);
 web = new WebClient(token);

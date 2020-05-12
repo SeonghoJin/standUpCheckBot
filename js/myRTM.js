@@ -8,30 +8,52 @@ function myRTM(token){
 }
 
 myRTM.prototype.start = function(){
-    this.request(this.urls.start);
+    this.request("get",this.uris.start);
 }
 
-myRTM.prototype.request = function(query){
-    let newQuery = this.formatQuery(query);
-    
-    request.get(newQuery, function(error, response, body){
-        console.log(response);
+myRTM.prototype.getChannels = function(){
+    this.request("get",this.uris.getChannels);
+}
+
+myRTM.prototype.postMessage = function(channel, text){
+    this.request("post",this.uris.postMessage,{
+        channel : channel,
+        text : text
     })
 }
 
-myRTM.prototype.formatQuery = function(uri, query){
+myRTM.prototype.getChannelsHistory = function(channel, count){
+    this.request("get", this.uris.getChannelsHistory,{
+        channel : channel
+    })
+}
+
+myRTM.prototype.request = function(type, uri, query){
+    let newQuery = this.formatQuery(type, uri, query);
+    
+    request(newQuery,function(error, response, body){
+        console.log(body);
+    })
+    
+}
+
+myRTM.prototype.formatQuery = function(type, uri, query){
     let newQuery = {};
     query = query || {};
     
     query.token = this.token;
+    newQuery.method = type;
     newQuery.uri = uri;
     newQuery.qs = query;
-    console.log(newQuery);
+    console.log(uri);
     return newQuery;
 }
 
-myRTM.prototype.urls = {
-    start : 'https://slack.com/api/rtm.start'
+myRTM.prototype.uris = {
+    start : 'https://slack.com/api/rtm.start',
+    getChannels : 'https://slack.com/api/channels.list',
+    postMessage : 'https://slack.com/api/chat.postMessage',
+    getChannelsHistory : 'https://slack.com/api/channels.history'
 }
 
 
