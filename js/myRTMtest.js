@@ -1,14 +1,20 @@
 const myRTM = require('./myRTM');
 const fs = require('fs');
-
-const token = fs.readFileSync('../token/token.txt', 'utf-8');
+const WebSocket = require('ws');
+const token = fs.readFileSync('../token/token2.txt', 'utf-8');
 const rtm = new myRTM(token);
 
 
-rtm.start();
+var wss;
 
-rtm.getChannels();
+rtm.connect().then(function(result){
+   console.log(result.url);
+   wss = new WebSocket(result.url);   
+   wss.on('message', function(event,listener){
+      console.log(event);
+   })
+});
 
-rtm.postMessage('C013B6EM4R3',"HELLO WORLD");
 
-rtm.getChannelsHistory('C013B6EM4R3');
+ 
+

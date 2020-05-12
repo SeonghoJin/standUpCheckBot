@@ -8,22 +8,26 @@ function myRTM(token){
 }
 
 myRTM.prototype.start = function(){
-    this.request("get",this.uris.start);
+    return this.request("get", this.uris.start);
+}
+
+myRTM.prototype.connect = function(){
+    return this.request("get", this.uris.connect);
 }
 
 myRTM.prototype.getChannels = function(){
-    this.request("get",this.uris.getChannels);
+    return this.request("get", this.uris.getChannels);
 }
 
 myRTM.prototype.postMessage = function(channel, text){
-    this.request("post",this.uris.postMessage,{
+    return this.request("post", this.uris.postMessage,{
         channel : channel,
         text : text
     })
 }
 
 myRTM.prototype.getChannelsHistory = function(channel, count){
-    this.request("get", this.uris.getChannelsHistory,{
+    return this.request("get", this.uris.getChannelsHistory,{
         channel : channel
     })
 }
@@ -31,10 +35,11 @@ myRTM.prototype.getChannelsHistory = function(channel, count){
 myRTM.prototype.request = function(type, uri, query){
     let newQuery = this.formatQuery(type, uri, query);
     
-    request(newQuery,function(error, response, body){
-        console.log(body);
+    return new Promise(function(resolve, reject){
+        request(newQuery,function(error,response,body){
+            resolve(body);      
+        })
     })
-    
 }
 
 myRTM.prototype.formatQuery = function(type, uri, query){
@@ -45,6 +50,8 @@ myRTM.prototype.formatQuery = function(type, uri, query){
     newQuery.method = type;
     newQuery.uri = uri;
     newQuery.qs = query;
+    newQuery.json = true;
+    
     console.log(uri);
     return newQuery;
 }
@@ -53,39 +60,8 @@ myRTM.prototype.uris = {
     start : 'https://slack.com/api/rtm.start',
     getChannels : 'https://slack.com/api/channels.list',
     postMessage : 'https://slack.com/api/chat.postMessage',
-    getChannelsHistory : 'https://slack.com/api/channels.history'
+    getChannelsHistory : 'https://slack.com/api/channels.history',
+    connect : 'https://slack.com/api/rtm.connect'
 }
 
 
-/*
-Test
-
-
-const token = fs.readFileSync('token2.txt', 'utf-8');
-console.log(token);
-const rtm = new myRTM(token);
-rtm.start();
-*/
-
-
-
-
-/*
-
-requsetExample
-
-
-const options = {
-    uri : "https://slack.com/api/rtm.start",
-    
-    qs : {
-        token : 'xoxb-1099856482231-1139484135376-8NiIP1d0GzjzSC5m9wVZlAHbp'
-    }
-
-}
-
-request(options, function(err, response, body){
-    console.log(response);
-
-
-})*/
