@@ -1,0 +1,56 @@
+@startuml
+[RTMClient] as rtm
+[eventemitter3] as eventemitter
+[websocket] as ws
+[finity] as finity
+[p_queue] as pq
+[p_cancleable] as p_cancleable
+[web_api] as web_api
+[keepalive] as keepalive
+[logger] as logger
+[error] as error
+
+
+rtm -left-> eventemitter : extends
+rtm --> ws
+rtm --> finity
+rtm ---> pq
+rtm ---> p_cancleable
+rtm --> web_api
+rtm --> keepalive
+rtm --> logger
+rtm --> error
+
+
+keepalive -right---> eventemitter : extends
+
+note top of eventemitter
+This is a kind of observer patten 
+implementation embedded in Node.js
+end note
+
+note bottom of ws
+To use WebSocket communication
+end note
+
+note bottom of finity
+A finite state machine library for Node.js
+this is a friendly configuration DSL(Domain Specific Language)
+end note
+
+note bottom of pq
+Useful for rate-limiting async (or sync) operations.
+For example, when interacting with a REST API 
+end note
+
+note bottom of p_cancleable
+ Useful for animation, loading resources, 
+ long-running async computations, async iteration, etc.
+end note
+
+note bottom of web_api
+    this is slack's Web API
+end note
+
+
+@enduml

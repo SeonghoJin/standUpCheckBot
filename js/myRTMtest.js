@@ -7,7 +7,8 @@ const rtm = new myRTM(token);
 
 var wss;
 
-rtm.connect().then(function(result){
+rtm.connect().
+   then(function(result){
    console.log(result.url);
    wss = new WebSocket(result.url);   
    wss.on('message', function(event,listener){

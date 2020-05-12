@@ -1,0 +1,44 @@
+@startuml
+
+interface "Data Access" as DA
+
+DA - [First Component]
+[First Component] ..> HTTP : use
+
+note left of HTTP : Web Service only
+
+note right of [First Component]
+  A note can also
+  be on several lines
+end note
+
+HTTP .. ABC
+HTTP --> AB
+
+package "Some Group" {
+  HTTP - [SECOND]
+  [Another COMPonent]
+}
+
+node "Other Group" {
+  FTP - [Second]
+  [Another COMPonent] --> FTP
+}
+
+
+
+database "mysq" {
+  folder "This is My Folder" {
+    [Folder 3]
+  }
+  frame "Foo" {
+    [Fram 4]
+  }
+}
+
+cloud {
+  [Example1]
+}
+[Another COMPonent] -> [Example1]
+[Folder 3] -> [Fram 4]
+@enduml
