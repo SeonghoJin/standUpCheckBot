@@ -27,12 +27,11 @@ rtm.on('message', function(event){
 
 rtm.start();
 
-function messageAbsentUsers(){ // 10:30 시작
+function messageAbsentUsers(){ // 10:30 시작할 함수 
     rtm.postMessage('D0135SFM8RL', JSON.stringify(userschecker.checkAbsentUsers()));
 }
 
-function setUsersChecker(){ //8 : 30시 시작
-    console.log("setting완료")
+function setUsersChecker(){ //8 : 30시 시작할 함수
     return getUserList()
             .then(function(users){
                 userschecker = new UsersChecker(users);
