@@ -1,14 +1,29 @@
 'use strict'
 const request = require('request');
+const WebSocket = require('ws');
 
 module.exports = myRTM;
 
 function myRTM(token){
     this.token = token;
+    this.ws = null;
+    this.events = null
 }
 
 myRTM.prototype.start = function(){
-    return this.request("get", this.uris.start);
+    let _this = this;
+    this.request("get", this.uris.start)
+        .then(function(result){
+            console.log(result);
+            return _this.connect();
+        })
+        .then(function(result){
+            _this.ws = new WebSocket(result.url);
+            _this.ws.on('message',function(event, listener){
+                event = JSON.parse(event);
+                _this.execute(event);
+            })
+        })
 }
 
 myRTM.prototype.connect = function(){
@@ -28,8 +43,21 @@ myRTM.prototype.postMessage = function(channel, text){
 
 myRTM.prototype.getChannelsHistory = function(channel, count){
     return this.request("get", this.uris.getChannelsHistory,{
-        channel : channel
+        channel : channel,
+        count : count
     })
+}
+
+myRTM.prototype.on = function(event, callback){
+    this.events = this.events || {};
+    this.events[event] = callback;
+}
+
+myRTM.prototype.execute = function(event){
+    if(this.events[event.type] === undefined){
+       return;
+    }
+    this.events[event.type](event);
 }
 
 myRTM.prototype.request = function(type, uri, query){

@@ -9,7 +9,7 @@
 [keepalive] as keepalive
 [logger] as logger
 [error] as error
-
+[packagejson] as packagejson
 
 rtm -left-> eventemitter : extends
 rtm --> ws
@@ -20,7 +20,7 @@ rtm --> web_api
 rtm --> keepalive
 rtm --> logger
 rtm --> error
-
+rtm --> packagejson
 
 keepalive -right---> eventemitter : extends
 
@@ -51,6 +51,5 @@ end note
 note bottom of web_api
     this is slack's Web API
 end note
-
 
 @enduml
