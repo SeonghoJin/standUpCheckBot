@@ -7,7 +7,7 @@ const token = fs.readFileSync('../token/token.txt', 'utf-8');
 const rtm = new myRTM(token);
 
 rtm.usersList().then(function(result){
-  console.log(result);
+  console.log()
 })
 
 

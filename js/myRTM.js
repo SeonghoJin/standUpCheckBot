@@ -7,20 +7,20 @@ module.exports = myRTM;
 function myRTM(token){
     this.token = token;
     this.ws = null;
-    this.events = null
+    this.events = {};
 }
 
 myRTM.prototype.start = function(){
     let _this = this;
     this.request("get", this.uris.start)
         .then(function(result){
-            console.log(result);
             return _this.connect();
         })
         .then(function(result){
             _this.ws = new WebSocket(result.url);
             _this.ws.on('message',function(event, listener){
                 event = JSON.parse(event);
+                console.log(event.type);
                 _this.execute(event);
             })
         })
@@ -56,10 +56,11 @@ myRTM.prototype.on = function(event, callback){
 }
 
 myRTM.prototype.execute = function(event){
-    if(this.events[event.type] === undefined){
+    let _this = this;
+    if(event.type === null || _this.events[event.type] == undefined){
        return;
     }
-    this.events[event.type](event);
+    _this.events[event.type](event);
 }
 
 myRTM.prototype.request = function(type, uri, query){
