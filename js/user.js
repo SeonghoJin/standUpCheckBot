@@ -1,10 +1,10 @@
 'use strict'
 
-module.exports = Person;
+module.exports = User;
 
 function User(user){
-    user.name = name;
-    user.id = id;
+    this.name = user.name;
+    this.id = user.id;
 }
 
 

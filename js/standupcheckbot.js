@@ -1,6 +1,6 @@
 'use strict'
 const RTMClient = require('./myRTM');
-const Person = require('./user');
+const User = require('./user');
 const PeopleChecker = require('./peoplechecker');
 const Schedule = require('node-schedule');
 const fs = require('fs');
@@ -19,9 +19,13 @@ rtm.on('message', function(event){
 
 rtm.usersList()
     .then(function(result){
-        result.members.forEach(x => {
-            userList.push()
+        userList = result.members.filter(x => {
+            return !(x.is_bot || x.is_app_user);
         })
+        .map(x => {
+            return new User(x);
+        })
+        console.log(userList);
     })
 
 rtm.start();
