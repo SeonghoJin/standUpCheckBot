@@ -1,5 +1,5 @@
 'use strict'
-const peopleChecker = require('./peoplechecker');
+const PeopleChecker = require('./peoplechecker');
 
 const people = [
     {name : "seongho"},
@@ -8,14 +8,14 @@ const people = [
     {name : "temp"}
 ]
 
-const attendancecheker = new peopleChecker(people);
+const peopleChecker = new PeopleChecker(people);
 
-attendancecheker.attend(people[0]);
-attendancecheker.attend(people[1]);
-attendancecheker.attend(people[2]);
-attendancecheker.attend(people[3]);
+peopleChecker.attend(people[0]);
+peopleChecker.attend(people[1]);
+peopleChecker.attend(people[2]);
 
-console.log(attendancecheker.checkAbsentPeople());
+
+console.log(peopleChecker.checkAbsentPeople());
 
 
 
