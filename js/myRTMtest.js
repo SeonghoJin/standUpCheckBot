@@ -10,29 +10,5 @@ rtm.start();
 
 
 
-
-
-
-
-
-/*
-rtm.on('message', function(event){
-  console.log(event);
-})*/
-
-/*
-var wss;
-
-rtm.connect().
-   then(function(result){
-   console.log(result.url);
-   wss = new WebSocket(result.url);   
-   wss.on('message', function(event, listener){
-     console.log(JSON.parse(event));
-   })
-   
-});
-*/
-
  
 

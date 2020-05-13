@@ -16,6 +16,7 @@ function attendanceChecker(people){
 
 attendanceChecker.prototype.attend = function(person){
     let _this = this;
+    if(_this.attendance[person.name] === undefined)return;
     _this.attendance[person.name] = _this.ATTEND;
 }
 
