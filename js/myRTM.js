@@ -47,9 +47,11 @@ myRTM.prototype.getChannelsHistory = function(channel, count){
         count : count
     })
 }
+
 myRTM.prototype.usersList = function(){
     return this.request("get", this.uris.usersList);
 }
+
 myRTM.prototype.on = function(event, callback){
     this.events = this.events || {};
     this.events[event] = callback;
