@@ -1,9 +1,6 @@
 'use strict'
 
-
-
-const ABSENT = 0;
-const ATTEND = 1;
+module.exports = attendanceChecker;
 
 function attendanceChecker(people){
     let _this = this
@@ -15,7 +12,6 @@ function attendanceChecker(people){
     people.forEach(person => {
         _this.attendance[person.name] = _this.ABSENT;        
     })
-
 }
 
 attendanceChecker.prototype.attend = function(person){

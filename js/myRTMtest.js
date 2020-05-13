@@ -1,3 +1,4 @@
+'use strict'
 const myRTM = require('./myRTM');
 const fs = require('fs');
 const WebSocket = require('ws');
