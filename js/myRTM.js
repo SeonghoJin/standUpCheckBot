@@ -47,7 +47,9 @@ myRTM.prototype.getChannelsHistory = function(channel, count){
         count : count
     })
 }
-
+myRTM.prototype.usersList = function(){
+    return this.request("get", this.uris.usersList);
+}
 myRTM.prototype.on = function(event, callback){
     this.events = this.events || {};
     this.events[event] = callback;
@@ -89,7 +91,8 @@ myRTM.prototype.uris = {
     getChannels : 'https://slack.com/api/channels.list',
     postMessage : 'https://slack.com/api/chat.postMessage',
     getChannelsHistory : 'https://slack.com/api/channels.history',
-    connect : 'https://slack.com/api/rtm.connect'
+    connect : 'https://slack.com/api/rtm.connect',
+    usersList : 'https://slack.com/api/users.list'
 }
 
 
