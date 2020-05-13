@@ -6,8 +6,9 @@ const WebSocket = require('ws');
 const token = fs.readFileSync('../token/token.txt', 'utf-8');
 const rtm = new myRTM(token);
 
-rtm.start();
-
+rtm.usersList().then(function(result){
+  console.log(result);
+})
 
 
  
