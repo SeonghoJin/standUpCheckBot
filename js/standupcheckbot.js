@@ -10,29 +10,33 @@ const rtm = new RTMClient(token);
 
 let userschecker;
 
-setUsersChecker();
+setUsersChecker()
+    .then(function(){
+        messageCheckAbsentUsers();
+    });
 
 rtm.on('message', function(event){
-    console.log(event.user);
+    userschecker.attend(event.user);
 })
-
-
-    
 
 rtm.start();
 
+function messageCheckAbsentUsers(){ // 10:30 시작
+    rtm.postMessage('D0135SFM8RL', JSON.stringify(userschecker.checkAbsentUsers()));
+}
 
-
-function setUsersChecker(){
+function setUsersChecker(){ //8 : 30시 시작
+    console.log("succes setting attendances");
     return getUserList()
-        .then(function(users){
-            userschecker = new UsersChecker(users);
-        })
+            .then(function(users){
+                userschecker = new UsersChecker(users);
+            })
 }
 
 function getUserList(){
     return rtm.usersList()
             .then(function(result){
+                console.log(result);
                 return result.members.filter(x => !(x.is_bot || x.is_app_user)).map(x => new User(x))
             })
 }

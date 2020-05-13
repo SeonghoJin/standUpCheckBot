@@ -6,25 +6,27 @@ function UsersChecker(users){
     let _this = this
     _this.count = users.length;
     _this.attendance = {};
+    _this.usersName = {};
     _this.ABSENT = 0;
     _this.ATTEND = 1;
-
+    
     users.forEach(user => {
-        _this.attendance[user.id] = {isAttend : _this.ABSENT, name : user.name};        
+        _this.attendance[user.id] = _this.ABSENT;        
+        _this.usersName[user.id] = user.name;
     })
 }
 
-UsersChecker.prototype.attend = function(user){
+UsersChecker.prototype.attend = function(id){
     let _this = this;
-    if(_this.attendance[user.id] === undefined)return;
-    _this.attendance[user.id].isAttend = _this.ATTEND;
+    if(_this.attendance[id] === undefined)return;
+    _this.attendance[id] = _this.ATTEND;
 }
 
-UsersChecker.prototype.checkAbsentUser = function(){
+UsersChecker.prototype.checkAbsentUsers = function(){
     let _this = this;
     let absentUser = [];
     for(const id in _this.attendance){
-        if(_this.attendance[id].isAttend === _this.ABSENT)absentUser.push(_this.attendance[id].name);
+        if(_this.attendance[id] === _this.ABSENT)absentUser.push(_this.usersName[id]);
     }
     return absentUser;
 }
