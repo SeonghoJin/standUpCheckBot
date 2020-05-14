@@ -53,7 +53,7 @@ function messageAbsentUsers(){ // 10:30 시작할 함수
     rtm.postMessage(testChannel, userschecker.checkAbsentUsers() + " " + new Date());
 }
 
-function setUsersChecker(){ //8 : 30시 시작할 함수
+function setUsersChecker(){ //8 : 30시 시작할 함수a
     rtm.postMessage(testChannel, "reset attendance" + " " + new Date());
     return getUserList()
             .then(function(users){
