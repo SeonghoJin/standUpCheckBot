@@ -5,7 +5,7 @@ const UsersChecker = require('./js/userchecker');
 const Schedule = require('node-schedule');
 const fs = require('fs');
 
-const token = fs.readFileSync('./token/token2.txt'); 
+const token = fs.readFileSync('./token/token.txt'); 
 const testChannel = 'D0135SFM8RL';
 const rtm = new RTMClient(token);
 
