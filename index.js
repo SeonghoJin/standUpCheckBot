@@ -2,7 +2,7 @@
 const RTMClient = require('./js/myRTM');
 const User = require('./js/user');
 const UsersChecker = require('./js/userchecker');
-const Schedule = require('node-schedule');
+const Schedule = require('node-schedule-tz');
 const fs = require('fs');
 
 const token = fs.readFileSync('./token.txt'); 
@@ -10,10 +10,10 @@ const testChannel = 'D0135SFM8RL';
 const rtm = new RTMClient(token);
 
 let userschecker = new UsersChecker([]);
-let setUsersCheckerRule = makeScheduleRule({hour : 8, minute : 30});
-let messageAbsentUsersRule = makeScheduleRule({hour : 10, minute : 30});
-let test_setUsersCheckerRule = makeScheduleRule({minute : 51});
-let test_messageAbsentUsersRule = makeScheduleRule({minute : 50});
+let setUsersCheckerRule = makeScheduleRule({hour : 8, minute : 30, tz : 'Asia/Seoul'});
+let messageAbsentUsersRule = makeScheduleRule({hour : 10, minute : 30, tz : 'Asia/Seoul'});
+let test_setUsersCheckerRule = makeScheduleRule({minute : 51, tz : 'Asia/Seoul'});
+let test_messageAbsentUsersRule = makeScheduleRule({minute : 50, tz : 'Asia/Seoul'});
 
 setUsersChecker();
 
