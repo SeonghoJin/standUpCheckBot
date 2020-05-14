@@ -10,8 +10,8 @@ const testChannel = 'D0135SFM8RL';
 const rtm = new RTMClient(token);
 
 let userschecker = new UsersChecker([]);
-let setUsersCheckerRule = makeScheduleRule({hour : 8, minute : 30, tz : 'Asia/Seoul'});
-let messageAbsentUsersRule = makeScheduleRule({hour : 10, minute : 30, tz : 'Asia/Seoul'});
+let setUsersCheckerRule = makeScheduleRule({hour : 23, minute : 30, tz : 'Asia/Seoul'});
+let messageAbsentUsersRule = makeScheduleRule({hour : 1, minute : 30, tz : 'Asia/Seoul'});
 let test_setUsersCheckerRule = makeScheduleRule({minute : 51, tz : 'Asia/Seoul'});
 let test_messageAbsentUsersRule = makeScheduleRule({minute : 50, tz : 'Asia/Seoul'});
 
