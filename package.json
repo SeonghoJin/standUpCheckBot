@@ -18,7 +18,8 @@
     "node-schedule-tz": "^1.2.1-4",
     "request": "^2.81.0",
     "weather-js": "^2.0.0",
-    "ws": "^5.2.2"
+    "ws": "^5.2.2",
+    "xmlhttprequest": "^1.8.0"
   },
   "devDependencies": {
     "tape": "^4.7.0"
