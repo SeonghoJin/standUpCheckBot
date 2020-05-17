@@ -6,13 +6,13 @@ const Schedule = require('node-schedule-tz');
 const fs = require('fs');
 
 const token = fs.readFileSync('./token.txt','utf-8'); 
-const testChannel = 'D0135SFM8RL';
+const testChannel = 'D013SPP9MFC';
 const rtm = new RTMClient(token);
 
 let userschecker = new UsersChecker([]);
 
-let setUsersCheckerRule = makeScheduleRule({hour : 23, minute : 30, tz : 'Asia/Seoul'});
-let messageAbsentUsersRule = makeScheduleRule({hour : 1, minute : 30, tz : 'Asia/Seoul'});
+let setUsersCheckerRule = makeScheduleRule({hour : 23, minute : 30, tz : 'Asia/Seoul', dayOfWeek : [0, new Schedule.Range(1,5)]});
+let messageAbsentUsersRule = makeScheduleRule({hour : 1, minute : 30, tz : 'Asia/Seoul', dayOfWeek : [0, new Schedule.Range(1,5)]});
 //let test_setUsersCheckerRule = makeScheduleRule({minute : 51, tz : 'Asia/Seoul'});
 //let test_messageAbsentUsersRule = makeScheduleRule({minute : 50, tz : 'Asia/Seoul'});
 
