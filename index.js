@@ -43,7 +43,7 @@ rtm.on('message', function(event){
     if(event.text === 'Hello'){
         rtm.postMessage(testChannel, "Hi! How are you");
     }
-    else if(event.text === 'Who absent'){
+    else if(event.text === "who's absent"){
         messageAbsentUsers();
     }
 })
