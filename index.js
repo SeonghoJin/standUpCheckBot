@@ -52,11 +52,11 @@ rtm.on('message', function(event){
 rtm.start();
 
 function messageAbsentUsers(){ // 10:30 시작할 함수 
-    rtm.postMessage(testChannel, userschecker.checkAbsentUsers() + " " + new Date());
+    rtm.postMessage(testChannel, userschecker.checkAbsentUsers());
 }
 
 function setUsersChecker(){ //8 : 30시 시작할 함수a
-    rtm.postMessage(testChannel, "reset attendance" + " " + new Date());
+    rtm.postMessage(testChannel, "Reset attendance");
     return getUserList()
             .then(function(users){
                 userschecker = new UsersChecker(users);
