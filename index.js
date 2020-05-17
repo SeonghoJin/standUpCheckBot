@@ -67,7 +67,7 @@ function getUserList(){
     return rtm.usersList()
             .then(function(result){
                 console.log(result);
-                return result.members.filter(x =>(x.tz !== null && x.tz !== undefined && x.tz === 'Asia/Seoul') || !(x.is_bot || x.is_app_user)).map(x => new User(x))
+                return result.members.filter(x =>(x.tz !== null && x.tz !== undefined && x.tz === 'Asia/Seoul') && !(x.is_bot || x.is_app_user)).map(x => new User(x))
             });
 }
 
