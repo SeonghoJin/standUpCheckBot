@@ -18,7 +18,8 @@ let messageAbsentUsersRule = makeScheduleRule({hour : 1, minute : 30, tz : 'Asia
 
 
 setUsersChecker();
-/*
+
+/* Test Code
  *(function test_setUsersCheckerJob(test_setUsersCheckerRule, setUsersChecker){
  *    Schedule.scheduleJob(test_setUsersCheckerRule, setUsersChecker);
  *})(test_setUsersCheckerRule, setUsersChecker);
@@ -41,9 +42,9 @@ setUsersChecker();
 rtm.on('message', function(event){
     userschecker.attend(event.user);
     if(event.text === 'Hello'){
-        rtm.postMessage(testChannel, "Hi! How are you");
+        rtm.postMessage(testChannel, "Hi! how are you");
     }
-    else if(event.text === "who's absent"){
+    else if(event.text === "Who's absent"){
         messageAbsentUsers();
     }
 })
@@ -55,8 +56,8 @@ function messageAbsentUsers(){ // 10:30 시작할 함수
     rtm.postMessage(testChannel, userschecker.checkAbsentUsers());
 }
 
-function setUsersChecker(){ //8 : 30시 시작할 함수a
-    //rtm.postMessage(testChannel, "Reset attendance");
+function setUsersChecker(){ //8 : 30시 시작할 함수
+    rtm.postMessage(testChannel, "Reset attendance");
     return getUserList()
             .then(function(users){
                 userschecker = new UsersChecker(users);
@@ -66,7 +67,6 @@ function setUsersChecker(){ //8 : 30시 시작할 함수a
 function getUserList(){
     return rtm.usersList()
             .then(function(result){
-                console.log(result);
                 return result.members.filter(x =>(x.tz !== null && x.tz !== undefined && x.tz === 'Asia/Seoul') && !(x.is_bot || x.is_app_user)).map(x => new User(x))
             });
 }
