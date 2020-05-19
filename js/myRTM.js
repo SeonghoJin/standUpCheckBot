@@ -19,6 +19,9 @@ myRTM.prototype.start = function(){
         .then(function(result){
             _this.ws = new WebSocket(result.url);
             _this.ws.on('message',function(event, listener){
+                if(event.type === 'goodbye'){
+                    _this.start();
+                }
                 event = JSON.parse(event);
                 console.log(event.type);
                 _this.execute(event);

@@ -49,6 +49,10 @@ rtm.on('message', function(event){
     }
 })
 
+rtm.on('goodbye', function(event){
+    rtm.postMessage(testChannel, "Good Bye");
+})
+
 
 rtm.start();
 
