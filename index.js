@@ -38,9 +38,8 @@ setUsersChecker();
 })(messageAbsentUsersRule, messageAbsentUsers);
 
 
-
 rtm.on('message', function(event){
-    userschecker.attend(event.user);
+    userschecker.attend(event);
     console.log(event);
     if(event.text === 'Hello'){
         rtm.postMessage(testChannel, "Hi! how are you");
