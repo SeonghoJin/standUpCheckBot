@@ -21,9 +21,10 @@ myRTM.prototype.start = function(){
                 event = JSON.parse(event);
                 if(event.type === 'goodbye'){
                     _this.start();
-                }
+                }else{
                 console.log(event.type);
                 _this.execute(event);
+                }
             })
         })
 }
