@@ -23,7 +23,7 @@ myRTM.prototype.start = function(){
                     _this.start();
                 }
                 console.log(event.type);
-                _this.execute(event);
+                _this.execute(event.type);
             })
         })
 }
