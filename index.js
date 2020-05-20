@@ -41,7 +41,7 @@ setUsersChecker();
 
 rtm.on('message', function(event){
     userschecker.attend(event.user);
-    console.log(event.user);
+    console.log(event);
     if(event.text === 'Hello'){
         rtm.postMessage(testChannel, "Hi! how are you");
     }
