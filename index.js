@@ -13,17 +13,12 @@ let userschecker = new UsersChecker([]);
 
 let setUsersCheckerRule = makeScheduleRule({hour : 23, minute : 30, tz : 'Asia/Seoul', dayOfWeek : [0, new Schedule.Range(1,5)]});
 let messageAbsentUsersRule = makeScheduleRule({hour : 1, minute : 30, tz : 'Asia/Seoul', dayOfWeek : [0, new Schedule.Range(1,5)]});
-//let test_setUsersCheckerRule = makeScheduleRule({minute : 51, tz : 'Asia/Seoul'});
-//let test_messageAbsentUsersRule = makeScheduleRule({minute : 50, tz : 'Asia/Seoul'});
-
-setUsersChecker();
 
 function messageAbsentUsers(){ // 10:30 시작할 함수 
     rtm.postMessage(testChannel, userschecker.checkAbsentUsers());
 }
 
 function setUsersChecker(){ //8 : 30시 시작할 함수
-    rtm.postMessage(testChannel, "Reset attendance");
     return getUserList()
             .then(function(users){
                 userschecker = new UsersChecker(users);
@@ -52,6 +47,8 @@ function makeScheduleRule(date){
 (function messageAbsentUsersJob(messageAbsentUsersRule, messageAbsentUsers){
     Schedule.scheduleJob(messageAbsentUsersRule, messageAbsentUsers);
 })(messageAbsentUsersRule, messageAbsentUsers);
+
+setUsersChecker();
 
 rtm.on('message', function(event){
     userschecker.attend(event);
