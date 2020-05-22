@@ -30,5 +30,5 @@ UsersChecker.prototype.checkAbsentUsers = function(){
     for(const id in _this.attendance){
         if(_this.attendance[id] === _this.ABSENT)absentUser.push(_this.usersName[id]);
     }
-    return JSON.stringify(absentUser);
+    return absentUser;
 }

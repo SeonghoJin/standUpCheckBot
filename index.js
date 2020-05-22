@@ -2,20 +2,33 @@
 const RTMClient = require('./js/myRTM');
 const User = require('./js/user');
 const UsersChecker = require('./js/userchecker');
+const messageTemplate = require('./js/messagetemplate');
 const Schedule = require('node-schedule-tz');
 const fs = require('fs');
 
 const token = fs.readFileSync('./token.txt','utf-8'); 
-const testChannel = 'CQPBZNR2S';
+const testChannel = 'D013SPP9MFC';
+const standUpChannel = 'CQN41THKN'
 const rtm = new RTMClient(token);
+const messagetemplate = new messageTemplate();
 
 let userschecker = new UsersChecker([]);
-
 let setUsersCheckerRule = makeScheduleRule({hour : 23, minute : 30, tz : 'Asia/Seoul', dayOfWeek : [0, new Schedule.Range(1,5)]});
 let messageAbsentUsersRule = makeScheduleRule({hour : 1, minute : 30, tz : 'Asia/Seoul', dayOfWeek : [0, new Schedule.Range(1,5)]});
 
-function messageAbsentUsers(){ // 10:30 시작할 함수 
-    rtm.postMessage(testChannel, userschecker.checkAbsentUsers());
+
+function messageTemplateAbsentUsers(){
+    let template = messagetemplate.createAbsentMessageTemplate();
+    let data = {};
+
+    data.users = userschecker.checkAbsentUsers();
+    template = messagetemplate.dataBinding(template,data);
+    
+    return template;
+}
+
+function messageAbsentUsers(){ // 10:30 시작할 함수
+    rtm.postMessage(standUpChannel, messageTemplateAbsentUsers());
 }
 
 function setUsersChecker(){ //8 : 30시 시작할 함수
@@ -51,14 +64,15 @@ function makeScheduleRule(date){
 setUsersChecker();
 
 rtm.on('message', function(event){
-    userschecker.attend(event);
+    if(event.channel == 'CQN41THKN'){
+        userschecker.attend(event);
+    }
     if(event.text === 'Hello'){
         rtm.postMessage(event.channel, "Hi! how are you");
     }
-    else if(event.text === "Who's absent"){
-        rtm.postMessage(event.channel, userschecker.checkAbsentUsers());
+    if(event.text === "Who's absent"){
+        rtm.postMessage(event.channel, messageTemplateAbsentUsers());
     }
 })
 
 rtm.start();
-

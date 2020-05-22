@@ -88,7 +88,6 @@ myRTM.prototype.formatQuery = function(type, uri, query){
     newQuery.qs = query;
     newQuery.json = true;
     
-    console.log(uri);
     return newQuery;
 }
 
