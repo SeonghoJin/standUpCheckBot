@@ -8,13 +8,14 @@ const fs = require('fs');
 
 const token = fs.readFileSync('./token.txt','utf-8'); 
 const testChannel = 'D013SPP9MFC';
+const chatChannel = 'CQPBZNR2S';
 const standUpChannel = 'CQN41THKN'
 const rtm = new RTMClient(token);
 const messagetemplate = new messageTemplate();
 
 let userschecker = new UsersChecker([]);
-let setUsersCheckerRule = makeScheduleRule({hour : 23, minute : 30, tz : 'Asia/Seoul', dayOfWeek : [0, new Schedule.Range(1,5)]});
-let messageAbsentUsersRule = makeScheduleRule({hour : 1, minute : 30, tz : 'Asia/Seoul', dayOfWeek : [0, new Schedule.Range(1,5)]});
+let setUsersCheckerRule = makeScheduleRule({hour : 23, minute : 30, tz : 'Asia/Seoul', dayOfWeek :  new Schedule.Range(1,5)});
+let messageAbsentUsersRule = makeScheduleRule({hour : 1, minute : 30, tz : 'Asia/Seoul', dayOfWeek :  new Schedule.Range(1,5)});
 
 
 function messageTemplateAbsentUsers(){
@@ -28,7 +29,7 @@ function messageTemplateAbsentUsers(){
 }
 
 function messageAbsentUsers(){ // 10:30 시작할 함수
-    rtm.postMessage(standUpChannel, messageTemplateAbsentUsers());
+    rtm.postMessage(chatChannel, messageTemplateAbsentUsers());
 }
 
 function setUsersChecker(){ //8 : 30시 시작할 함수
@@ -64,7 +65,7 @@ function makeScheduleRule(date){
 setUsersChecker();
 
 rtm.on('message', function(event){
-    if(event.channel == 'CQN41THKN'){
+    if(event.channel == standUpChannel){
         userschecker.attend(event);
     }
     if(event.text === 'Hello'){
