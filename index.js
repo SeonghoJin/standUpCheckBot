@@ -95,7 +95,7 @@ slackEvents.on('message', (event) => {
 
 // Handle errors (see `errorCodes` export)
 slackEvents.on('error', console.error);
-
+rtm.postMessage("start");
 // Start a basic HTTP server
 slackEvents.start(port).then(() => {
   // Listening on path '/slack/events' by default
