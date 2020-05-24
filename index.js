@@ -1,4 +1,4 @@
-'use strict'
+/*'use strict'
 const RTMClient = require('./js/myRTM');
 const User = require('./js/user');
 const UsersChecker = require('./js/userchecker');
@@ -77,3 +77,27 @@ rtm.on('message', function(event){
 })
 
 rtm.start();
+*/
+
+const { createEventAdapter } = require('@slack/events-api');
+const slackEvents = createEventAdapter('116f1418fcd1f6798a2f2c8b37102be5');
+const port = process.env.PORT || 3000;
+const myRTM = require('./js/myRTM');
+const rtm = new myRTM('xoxb-1099856482231-1127785805591-jnernsHR4m9OyGIiaQ7gLyRi');
+
+// Attach listeners to events by Slack Event "type". See: https://api.slack.com/events/message.im
+slackEvents.on('message', (event) => {
+  if(event.text =='Hi'){
+    rtm.postMessage(event.channel,"Hi! how are you");
+  }
+  console.log(`Received a message event: user ${event.user} in channel ${event.channel} says ${event.text}`);
+});
+
+// Handle errors (see `errorCodes` export)
+slackEvents.on('error', console.error);
+
+// Start a basic HTTP server
+slackEvents.start(port).then(() => {
+  // Listening on path '/slack/events' by default
+  console.log(`server listening on port ${port}`);
+});

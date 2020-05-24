@@ -13,3 +13,7 @@ docker-compose.yml
 
 # token
 token.txt
+
+# signing_secret
+
+signing_secret.txt
