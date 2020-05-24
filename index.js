@@ -32,7 +32,7 @@ function messageAbsentUsers(){ // 10:30 시작할 함수
     rtm.postMessage(chatChannel, messageTemplateAbsentUsers());
 }
 
-function setUsersChecker(){ //8 : 30시 시작할 함수
+function setUsersChecker(){ // 8 : 30시 시작할 함수
     return getUserList()
             .then(function(users){
                 userschecker = new UsersChecker(users);
