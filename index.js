@@ -78,7 +78,7 @@ rtm.on('message', function(event){
 
 rtm.start();
 */
-
+/*
 const { createEventAdapter } = require('@slack/events-api');
 const slackEvents = createEventAdapter('116f1418fcd1f6798a2f2c8b37102be5');
 const port = process.env.PORT || 3000;
@@ -100,4 +100,27 @@ rtm.postMessage("start");
 slackEvents.start(port).then(() => {
   // Listening on path '/slack/events' by default
   console.log(`server listening on port ${port}`);
+});*/
+
+
+
+const { createEventAdapter } = require('@slack/events-api');
+const slackSigningSecret = '198651c2cac62b304be742d5dac1fe98';
+const slackEvents = createEventAdapter(slackSigningSecret);
+const port = process.env.PORT || 3000;
+
+slackEvents.on('message', (event) => {
+  // Oops! This throws a TypesError.
+  console.log(event);
+  event.notAMethod();
 });
+
+// All errors in listeners are caught here. If this weren't caught, the program would terminate.
+slackEvents.on('error', (error) => {
+  console.log(error.name); // TypeError
+});
+
+(async () => {
+  const server = await slackEvents.start(port);
+  console.log(`Listening for events on ${server.address().port}`);
+})();
