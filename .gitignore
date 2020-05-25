@@ -15,5 +15,3 @@ docker-compose.yml
 token.txt
 
 # signing_secret
-
-signing_secret.txt

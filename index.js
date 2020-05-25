@@ -9,7 +9,7 @@ const fs = require('fs');
 
 const token = fs.readFileSync('./token.txt','utf-8'); 
 const signing_secret = fs.readFileSync('./signing_secret.txt','utf-8');
-const slackEvents = createEventAdapter(signing_secret);
+const slackEvents = createEventAdapter(process.env.SLACKSIGNING);
 const port = process.env.PORT || 3000;
 const rtm = new RTMClient(token);
 const messagetemplate = new messageTemplate();
