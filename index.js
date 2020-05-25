@@ -81,8 +81,8 @@ slackEvents.on('message', (event) => {
 
 slackEvents.start(port).then(() => {
   console.log(`server listening on port ${port}`);
+  
 });
 
-setUsersChecker();
 
 
