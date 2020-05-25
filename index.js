@@ -11,7 +11,7 @@ const token = fs.readFileSync('./token.txt','utf-8');
 const signing_secret = fs.readFileSync('./signing_secret.txt','utf-8');
 const slackEvents = createEventAdapter(signing_secret);
 const port = process.env.PORT || 3000;
-const rtm = new RTMClient(token);
+const web = new RTMClient(token);
 const messagetemplate = new messageTemplate();
 
 const testChannel = 'D013SPP9MFC';
@@ -33,7 +33,7 @@ function messageTemplateAbsentUsers(){
 }
 
 function messageAbsentUsers(){ // 10:30 시작할 함수
-    rtm.postMessage(chatChannel, messageTemplateAbsentUsers());
+    web.postMessage(chatChannel, messageTemplateAbsentUsers());
 }
 
 function setUsersChecker(){ // 8 : 30시 시작할 함수
@@ -44,7 +44,7 @@ function setUsersChecker(){ // 8 : 30시 시작할 함수
 }
 
 function getUserList(){
-    return rtm.usersList()
+    return web.usersList()
             .then(function(result){
                 return result.members.filter(x =>(x.tz !== null && x.tz !== undefined && x.tz === 'Asia/Seoul') && !(x.is_bot || x.is_app_user)).map(x => new User(x))
             });
@@ -67,15 +67,15 @@ function makeScheduleRule(date){
 })(messageAbsentUsersRule, messageAbsentUsers);
 
 slackEvents.on('message', (event) => {
-    console.log(event);
+    console.log(event.type);
     if(event.channel == standUpChannel){
         userschecker.attend(event);
     }
     if(event.text === 'Hello'){
-        rtm.postMessage(event.channel, "Hi! how are you");
+        web.postMessage(event.channel, "Hi! how are you");
     }
     if(event.text === "Who's absent"){
-        rtm.postMessage(event.channel, messageTemplateAbsentUsers());
+        web.postMessage(event.channel, messageTemplateAbsentUsers());
     }
 });
 
