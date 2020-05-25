@@ -70,7 +70,7 @@ function makeScheduleRule(date){
 })(messageAbsentUsersRule, messageAbsentUsers);
 
 slackEvents.on('message', (event) => {
-    console.log(event.type);
+    console.log(event);
     if(event.channel == standUpChannel){
         userschecker.attend(event);
     }
