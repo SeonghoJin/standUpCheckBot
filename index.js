@@ -23,12 +23,15 @@ let setUsersCheckerRule = makeScheduleRule({hour : 23, minute : 30, tz : 'Asia/S
 let messageAbsentUsersRule = makeScheduleRule({hour : 1, minute : 30, tz : 'Asia/Seoul', dayOfWeek :  new Schedule.Range(1,5)});
 
 function messageTemplateAbsentUsers(){
-    let template = messagetemplate.createAbsentMessageTemplate();
+    let template; 
     let data = {};
-
-    data.users = userschecker.checkAbsentUsers();
-    template = messagetemplate.dataBinding(template,data);
     
+    data.users = userschecker.checkAbsentUsers();
+    if(data.users.length === 0){template = messagetemplate.createNoAbsentMessageTemplate();}
+    else{template = messagetemplate.createAbsentMessageTemplate();}
+
+    template = messagetemplate.dataBinding(template,data);
+
     return template;
 }
 
