@@ -19,7 +19,7 @@ const chatChannel = 'CQPBZNR2S';
 const standUpChannel = 'CQN41THKN';
 
 let userschecker = new UsersChecker([]);
-let setUsersCheckerRule = makeScheduleRule({/*hour : 23, minute : 30,*/ second : 1, tz : 'Asia/Seoul', dayOfWeek :  new Schedule.Range(1,5)});
+let setUsersCheckerRule = makeScheduleRule({hour : 23, minute : 30, tz : 'Asia/Seoul', dayOfWeek :  new Schedule.Range(1,5)});
 let messageAbsentUsersRule = makeScheduleRule({hour : 1, minute : 30, tz : 'Asia/Seoul', dayOfWeek :  new Schedule.Range(1,5)});
 
 function messageTemplateAbsentUsers(){
@@ -43,7 +43,7 @@ function setUsersChecker(){ // 8 : 30시 시작할 함수
     return getUserList()
             .then(function(users){
                 userschecker = new UsersChecker(users);
-                web.postMessage(testChannel, "setting");
+                web.postMessage()
             });
 }
 
