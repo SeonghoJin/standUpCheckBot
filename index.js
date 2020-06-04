@@ -7,6 +7,7 @@ const Schedule = require('node-schedule-tz');
 const fs = require('fs');
 
 const token = fs.readFileSync('./token.txt','utf-8'); 
+console.log(token);
 const rtm = new RTMClient(token);
 const messagetemplate = new messageTemplate();
 
@@ -79,7 +80,6 @@ rtm.on('message', (event) => {
     }
 });
 
-rtm.start()
+setUsersChecker();
 
-
-
+rtm.start();
