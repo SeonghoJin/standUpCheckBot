@@ -79,10 +79,7 @@ rtm.on('message', (event) => {
     }
 });
 
-rtm.start().then(function(){
-    setUsersChecker();
-    console.log("Start");
-});
+rtm.start()
 
 
 
