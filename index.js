@@ -18,6 +18,7 @@ let userschecker = new UsersChecker([]);
 let setUsersCheckerRule = makeScheduleRule({hour : 23, minute : 30, tz : 'Asia/Seoul', dayOfWeek :  new Schedule.Range(1,5)});
 let messageAbsentUsersRule = makeScheduleRule({hour : 1, minute : 30, tz : 'Asia/Seoul', dayOfWeek :  new Schedule.Range(1,5)});
 let FridayAnnouncementRule = makeScheduleRule({hour : 23, minute : 30, dayOfWeek : new Schedule.Range(5)});
+
 function messageTemplateAbsentUsers(){
     let template; 
     let data = {};
@@ -82,10 +83,14 @@ function makeScheduleRule(date){
         if(event.text === "Who's absent"){
             rtm.postMessage(event.channel, messageTemplateAbsentUsers());
         }
+        if(event.text ==="질문해봐"){
+            rtm.postQuestion(event.channel, "질문하겠습니다 아무렇게나 대답을 해주세요!")
+            .then(function(result){
+                rtm.postMessage(event.channel, "당신은" + result + "라고 말씀하셨네요");
+            })
+        }
     });
 })();
-
-rtm.eraseEventListner('message');
 
 setUsersChecker();
 

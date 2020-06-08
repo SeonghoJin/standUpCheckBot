@@ -44,6 +44,22 @@ myRTM.prototype.postMessage = function(channel, text){
     })
 }
 
+myRTM.prototype.postQuestion = function(channel, text){
+    let _this = this;
+    return new Promise(function(resolve, reject){
+        _this.postMessage(channel,text)
+        .then(function(){
+            _this.on('message',function(event){
+            if(event.channel == undefined || event.channel === null)return;
+            if(event.channel === channel){
+                _this.eraseEventListner('message');
+                resolve(event.text);
+            }
+        })
+    })
+    })
+}
+
 myRTM.prototype.getChannelsHistory = function(channel, count){
     return this.request("get", this.uris.getChannelsHistory,{
         channel : channel,
@@ -73,16 +89,10 @@ myRTM.prototype.execute = function(event){
 
 myRTM.prototype.eraseEventListner = function(event){
     let _this = this; 
-    _this.events[event].forEach(x => {
-        console.log(x);
-    })
     if(_this.events[event] == undefined || _this.events[event].length === 0){
        return;
     }
     _this.events[event].pop();
-_this.events[event].forEach(x => {
-        console.log(x);
-    })
 }
 
 myRTM.prototype.request = function(type, uri, query){
