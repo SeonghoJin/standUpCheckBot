@@ -85,7 +85,7 @@ function makeScheduleRule(date){
     });
 })();
 
-rtm.eraseEventListner('message');
+
 
 setUsersChecker();
 

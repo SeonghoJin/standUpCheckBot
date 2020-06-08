@@ -57,7 +57,8 @@ myRTM.prototype.usersList = function(){
 
 myRTM.prototype.on = function(event, callback){
     this.events = this.events || {};
-    this.events[event] = callback;
+    this.events[event] = this.events[event] || [];
+    this.events[event].push(callback);
 }
 
 myRTM.prototype.execute = function(event){
@@ -65,7 +66,23 @@ myRTM.prototype.execute = function(event){
     if(event.type === null || _this.events[event.type] == undefined){
        return;
     }
-    _this.events[event.type](event);
+    _this.events[event.type].forEach(execfunction => {
+        execfunction(event);
+    });
+}
+
+myRTM.prototype.eraseEventListner = function(event){
+    let _this = this; 
+    _this.events[event].forEach(x => {
+        console.log(x);
+    })
+    if(_this.events[event] == undefined || _this.events[event].length === 0){
+       return;
+    }
+    _this.events[event].pop();
+_this.events[event].forEach(x => {
+        console.log(x);
+    })
 }
 
 myRTM.prototype.request = function(type, uri, query){

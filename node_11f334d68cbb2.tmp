@@ -71,6 +71,9 @@ function makeScheduleRule(date){
         if(event.channel == standUpChannel){
         userschecker.attend(event);
         }
+        if(event.text === "Who's absent"){
+            rtm.postMessage(event.channel, messageTemplateAbsentUsers());
+        }
     });
 })();
 
@@ -79,9 +82,7 @@ function makeScheduleRule(date){
         if(event.text === 'Hello'){
             rtm.postMessage(event.channel, "Hi! how are you");
         }
-        if(event.text === "Who's absent"){
-            rtm.postMessage(event.channel, messageTemplateAbsentUsers());
-        }
+        
     });
 })();
 
