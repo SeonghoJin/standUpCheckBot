@@ -7,18 +7,17 @@ const Schedule = require('node-schedule-tz');
 const fs = require('fs');
 
 const token = fs.readFileSync('./token.txt','utf-8'); 
-console.log(token);
 const rtm = new RTMClient(token);
 const messagetemplate = new messageTemplate();
 
-const testChannel = 'D013SPP9MFC';
+const myChannel = 'D013SPP9MFC';
 const chatChannel = 'CQPBZNR2S';
 const standUpChannel = 'CQN41THKN';
 
 let userschecker = new UsersChecker([]);
 let setUsersCheckerRule = makeScheduleRule({hour : 23, minute : 30, tz : 'Asia/Seoul', dayOfWeek :  new Schedule.Range(1,5)});
 let messageAbsentUsersRule = makeScheduleRule({hour : 1, minute : 30, tz : 'Asia/Seoul', dayOfWeek :  new Schedule.Range(1,5)});
-
+let FridayAnnouncementRule = makeScheduleRule({hour : 23, minute : 30, dayOfWeek : new Schedule.Range(5)});
 function messageTemplateAbsentUsers(){
     let template; 
     let data = {};
