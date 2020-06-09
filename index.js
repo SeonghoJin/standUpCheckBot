@@ -141,5 +141,5 @@ function makeScheduleRule(date){
 })();
 
 setUsersChecker();
-announcement();
+
 rtm.start();
