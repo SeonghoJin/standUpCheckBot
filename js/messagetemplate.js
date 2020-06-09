@@ -3,7 +3,14 @@
 module.exports = messageTemplate;
 
 function messageTemplate(){
-
+    const templates = [];
+    templates.push("공지안함\n");
+    templates.push("직접 작성\n");
+    templates.push(this.createNoticeRunningTemplate());
+    templates.push(this.createNoticeReflectionTemplate());
+    templates.push(this.createNoticeUploadRunningPlan());
+    templates.push(this.createNoticeReflectionPlan());
+    this.templates = templates;
 }
 
 messageTemplate.prototype.createAbsentMessageTemplate = function(){
@@ -19,13 +26,40 @@ messageTemplate.prototype.createNoAbsentMessageTemplate = function(){
     return template;
 }
 
-messageTemplate.prototype.createFridayNoticeTemplate = function(){
-    let template = '내일은 이번 사이클의 마지막 단계인 relection발표날입니다.'
-                 + '이번 사이클동안 공부하신 내용을 잘 정리하여 발표해주시길 바랍니다!'
-                 +'회의 장소는 투표 결과대로 내일 오전 9시 공7 팬도로시 2층에서 뵙겠습니다!공지늦어서 죄송합니다.'
+messageTemplate.prototype.createNoticeRunningTemplate = function(){
+    let template = '내일은 일주일만에 모이는 study 하는 날입니다.\n'
+                 + '일주일동안 공부하신 내용을 내일까지 정리해주시길 바랍니다.\n'
+                 + '오전 9시 공7 팬도로시 2층에서 뵙겠습니다!\n'
     
     return template;
 }
+
+messageTemplate.prototype.createNoticeReflectionTemplate = function(){
+    let template = '내일은 이번 사이클의 마지막 단계인 relection발표날입니다.\n'
+                 + '이번 사이클동안 공부하신 내용을 잘 정리하여 발표해주시길 바랍니다!\n'
+                 + '회의 장소는 오전 9시 공7 팬도로시 2층입니다\n'
+    
+    return template;
+}
+
+messageTemplate.prototype.createNoticeUploadRunningPlan = function(){
+    let template = '오늘까지 러닝 계획을 업로드해주세요!\n';
+    return template;
+}
+
+messageTemplate.prototype.createNoticeReflectionPlan = function(){
+    let template = '오늘까지 reflection 계획을 업로드해주세요!\n';
+    return template;
+}
+
+messageTemplate.prototype.questionTemplate = function(){
+    let _this = this;
+    let template = '어떤 것을 공지하시겠습니까?\n'
+    for(let i = 0; i < this.templates.length; i++){
+        template += i+'.\n' + _this.templates[i] + '\n'; 
+    }
+    return template;
+}                  
      
 
 messageTemplate.prototype.dataBinding = function(template, data){
